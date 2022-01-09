@@ -1,5 +1,7 @@
 "use strict";
 import '../styles/style.css';
+import 'promise-polyfill/src/polyfill';
+import 'whatwg-fetch';
 (function init() {
     const locationAlert = document.querySelector('.location-alert');
     const timeElement = document.querySelector('#time');
