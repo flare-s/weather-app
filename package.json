@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "An application that gets the weather data",
   "main": "index.js",
-  "homepage": "https://flare-s.github.io/heavenly-bites-code/weather-app",
+  "homepage": "https://flare-s.github.io/weather-app",
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "predeploy": "npm run build",
