@@ -1,6 +1,7 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 const path = require("path");
 const glob = require('glob');
 
@@ -97,7 +98,8 @@ module.exports = {
         }),
         new PurgecssPlugin({
             paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
-        })
+        }),
+        new Dotenv()
 
     ],
     devServer: {

@@ -8,13 +8,9 @@ import 'whatwg-fetch';
     const dateElement = document.querySelector('#date');
     const currentWeatherItems = document.querySelector('#current-weather-items');
     const timeZone = document.querySelector('#time-zone');
-    const country = document.querySelector('#country');
     const weatherForecast = document.querySelector('#weather-forecast');
     const weatherForm = document.querySelector('.weather-form');
     const cityInput = document.querySelector('.weather-form input');
-    const openWeatherKey = 'd5fc663a6d7f62f55c75a87bc4ae565c';
-    const locationIQKey = 'pk.78294abcdf55195e4cd03d3bd61373af';
-    const UnsplashKey = 'om8CZNPOpR2UfNxITf64or5ZUNKnDRSs09V07_o06YU';
 
 
 
@@ -40,7 +36,7 @@ import 'whatwg-fetch';
     // get an image from the unsplash api depending on the query (city name in this case) inserted to the url parameter
     function getImg(data) {
         let city = data;
-        let UnsplashURL = `https://api.unsplash.com/search/photos?query=${city}&client_id=${UnsplashKey}`;
+        let UnsplashURL = `https://api.unsplash.com/search/photos?query=${city}&client_id=${process.env.UNSPLASH_KEY}`;
         fetch(UnsplashURL)
             .then(response => responseMethod(response))
             // parameters:  w = width, q = quality, fm = format;
@@ -210,7 +206,7 @@ import 'whatwg-fetch';
         const watch = navigator.geolocation.getCurrentPosition((success) => {
             const {latitude, longitude} = success.coords;
             // using the longitude and latitude to request the weather data
-            const defaultWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=metric&appid=${openWeatherKey}`;
+            const defaultWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=metric&appid=${process.env.OPENWEATHER_KEY}`;
             fetch(defaultWeatherURL)
                 .then((response) => responseMethod(response))
                 .then((data) => defaultWeatherUISuccess(data))
@@ -220,7 +216,7 @@ import 'whatwg-fetch';
             // get the name of a city from passing the longitude and latitude of the city
             function getCity(lat, long) {
         
-                const GetCityURL = `https://us1.locationiq.com/v1/reverse.php?key=${locationIQKey}&lat=${lat}"&lon=${long}&format=json`;
+                const GetCityURL = `https://us1.locationiq.com/v1/reverse.php?key=${process.env.LOCATIONIQ_KEY}&lat=${lat}"&lon=${long}&format=json`;
                 fetch(GetCityURL)
                     .then((response) => responseMethod(response))
                     .then((data) => getCityName(data))
@@ -255,7 +251,7 @@ import 'whatwg-fetch';
             // clear the input field
             cityInput.value = '';
             // fetching the searched city weather data from openweather api
-            const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${openWeatherKey}&units=metric`;
+            const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.OPENWEATHER_KEY}&units=metric`;
             fetch(currentWeatherURL)
             .then(response => responseMethod(response))
             .then(data => weatherFormUISuccess(data))
